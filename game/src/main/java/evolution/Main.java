@@ -20,6 +20,7 @@ public class Main {
 		frame.setVisible(true);
 		frame.setSize(800, 600);
 
+		
 		TerminationCondition targetCondition = new ElapsedTime(Long.MAX_VALUE);
 		// targetCondition = new GenerationCount(2000);
 		geneticAlgorithm.run(evolutionMonitor, 10000, 1000, targetCondition);
