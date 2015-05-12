@@ -9,7 +9,7 @@ public class Game {
 			"1");
 	public BigDecimal moneyInHand;
 	private Map<Business, Integer> businessesOwned;
-	
+
 	public Game() {
 		moneyInHand = LEMON_STAND_INITIAL_PROFIT;
 		businessesOwned = new HashMap<Business, Integer>();
@@ -40,7 +40,7 @@ public class Game {
 		if (currentlyOwned == null)
 			currentlyOwned = 0;
 		BigDecimal costOfTheNext = businessType.costOfTheNext(currentlyOwned);
-		if (playerHasEnoughMoney(businessType, costOfTheNext, currentlyOwned)) {
+		if (playerHasEnoughMoney(costOfTheNext, currentlyOwned)) {
 			buyBusiness(businessType, costOfTheNext, currentlyOwned);
 			return true;
 		}
@@ -53,8 +53,8 @@ public class Game {
 		moneyInHand = moneyInHand.subtract(costOfTheNext);
 	}
 
-	private boolean playerHasEnoughMoney(Business businessType,
-			BigDecimal costOfTheNext, Integer currentlyOwned) {
+	private boolean playerHasEnoughMoney(BigDecimal costOfTheNext,
+			Integer currentlyOwned) {
 		return moneyInHand.compareTo(costOfTheNext) >= 0;
 	}
 }

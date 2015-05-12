@@ -15,10 +15,12 @@ public class Fitness implements FitnessEvaluator<List<Order>> {
 		this.gameLength = gameLength;
 	}
 
+	@Override
 	public boolean isNatural() {
 		return true;
 	}
 
+	@Override
 	public double getFitness(List<Order> candidate,
 			List<? extends List<Order>> population) {
 		double time = time(candidate);

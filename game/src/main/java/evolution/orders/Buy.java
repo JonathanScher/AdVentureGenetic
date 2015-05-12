@@ -17,18 +17,21 @@ public class Buy implements Order {
 		}
 	}
 	
-	public static final Buy getInstance(Business business) {
-		return businesses.get(business);
-	}
-	
 	private Buy(Business business) {
 		this.business = business;
 	}
+	
+	public static final Buy getInstance(Business business) {
+		return businesses.get(business);
+	}
 
+
+	@Override
 	public boolean execute(Game game) {
 		return game.buy(business);
 	}
 
+	@Override
 	public double length() {
 		return 0;
 	}

@@ -22,9 +22,9 @@ public enum Business {
 	private BigDecimal initialProfit;
 	private BigDecimal coefficient;
 
-	private Cache<Integer, BigDecimal> costOfTheNextCache = CacheBuilder
+	private transient Cache<Integer, BigDecimal> costOfTheNextCache = CacheBuilder
 			.newBuilder().maximumSize(1000).build();
-	private Cache<Integer, BigDecimal> profitWaitingFor = CacheBuilder
+	private transient Cache<Integer, BigDecimal> profitWaitingFor = CacheBuilder
 			.newBuilder().maximumSize(1000).build();
 
 	private Business(Double initialCost, double initalTime, Long initialProfit,

@@ -32,6 +32,7 @@ public class ProtectedListInversion<T> implements EvolutionaryOperator<List<T>> 
 		this.inversionProbability = inversionProbability;
 	}
 
+	@Override
 	public List<List<T>> apply(List<List<T>> selectedCandidates, Random rng) {
 		List<List<T>> result = new ArrayList<List<T>>(selectedCandidates.size());
 		for (List<T> candidate : selectedCandidates) {
