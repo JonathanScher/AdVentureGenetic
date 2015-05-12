@@ -3,25 +3,25 @@ package evolution.orders;
 import java.util.HashMap;
 import java.util.Map;
 
-import game.BusinessType;
+import game.Business;
 import game.Game;
 
 public class Buy implements Order {
-	private static final Map<BusinessType, Buy> businesses;
-	private BusinessType business;
+	private static final Map<Business, Buy> businesses;
+	private Business business;
 	
 	static{
-		businesses = new HashMap<BusinessType, Buy>();
-		for(BusinessType business:BusinessType.values()){
+		businesses = new HashMap<Business, Buy>();
+		for(Business business:Business.values()){
 			businesses.put(business, new Buy(business));
 		}
 	}
 	
-	private Buy(BusinessType business) {
+	private Buy(Business business) {
 		this.business = business;
 	}
 	
-	public static final Buy getInstance(BusinessType business) {
+	public static final Buy getInstance(Business business) {
 		return businesses.get(business);
 	}
 

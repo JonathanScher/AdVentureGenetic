@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class GameTest {
 
-	private Map<BusinessType, Integer> possessions = new HashMap<BusinessType, Integer>();
+	private Map<Business, Integer> possessions = new HashMap<Business, Integer>();
 
 	@Before
 	public void init() {
@@ -33,10 +33,10 @@ public class GameTest {
 		// Given
 		Game game = new Game();
 		// When
-		Integer numberOfLemonStand = game.numberOf(BusinessType.LEMON_STAND);
+		Integer numberOfLemonStand = game.numberOf(Business.LEMON_STAND);
 		// Then
 		assertEquals(Integer.valueOf(1), numberOfLemonStand);
-		assertEquals(Integer.valueOf(0), game.numberOf(BusinessType.NEWSPAPER_DELIVERY));
+		assertEquals(Integer.valueOf(0), game.numberOf(Business.NEWSPAPER_DELIVERY));
 	}
 
 	
@@ -46,9 +46,9 @@ public class GameTest {
 		Game game = new Game();
 		game.moneyInHand = new BigDecimal("4");
 		// When
-		game.buy(BusinessType.LEMON_STAND);
+		game.buy(Business.LEMON_STAND);
 		// Then
-		assertEquals(Integer.valueOf(2), game.numberOf(BusinessType.LEMON_STAND));
+		assertEquals(Integer.valueOf(2), game.numberOf(Business.LEMON_STAND));
 	}
 
 	@Test
@@ -57,9 +57,9 @@ public class GameTest {
 		Game game = new Game();
 		game.moneyInHand = new BigDecimal("60");
 		// When
-		game.buy(BusinessType.NEWSPAPER_DELIVERY);
+		game.buy(Business.NEWSPAPER_DELIVERY);
 		// Then
-		assertEquals(Integer.valueOf(1), game.numberOf(BusinessType.NEWSPAPER_DELIVERY));
+		assertEquals(Integer.valueOf(1), game.numberOf(Business.NEWSPAPER_DELIVERY));
 	}
 
 	@Test
@@ -68,9 +68,9 @@ public class GameTest {
 		Game game = new Game();
 		game.moneyInHand = new BigDecimal("59");
 		// When
-		game.buy(BusinessType.NEWSPAPER_DELIVERY);
+		game.buy(Business.NEWSPAPER_DELIVERY);
 		// Then
-		assertEquals(Integer.valueOf(1), game.numberOf(BusinessType.LEMON_STAND));
+		assertEquals(Integer.valueOf(1), game.numberOf(Business.LEMON_STAND));
 	}
 
 	@Test
@@ -78,11 +78,11 @@ public class GameTest {
 		// Given
 		Game game = new Game();
 		game.moneyInHand = new BigDecimal("68");
-		addBusinessToPortfolio(game, BusinessType.NEWSPAPER_DELIVERY, 1);
+		addBusinessToPortfolio(game, Business.NEWSPAPER_DELIVERY, 1);
 		// When
-		game.buy(BusinessType.NEWSPAPER_DELIVERY);
+		game.buy(Business.NEWSPAPER_DELIVERY);
 		// Then
-		assertEquals(Integer.valueOf(1), game.numberOf(BusinessType.NEWSPAPER_DELIVERY));
+		assertEquals(Integer.valueOf(1), game.numberOf(Business.NEWSPAPER_DELIVERY));
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class GameTest {
 		Game game = new Game();
 		game.moneyInHand = new BigDecimal("4");
 		// When
-		game.buy(BusinessType.LEMON_STAND);
+		game.buy(Business.LEMON_STAND);
 		BigDecimal actual = game.moneyInHand;
 		// Then
 		BigDecimal expected = new BigDecimal("0.0");
@@ -104,16 +104,16 @@ public class GameTest {
 		Game game = new Game();
 		game.moneyInHand = new BigDecimal("2");
 		// When
-		game.buy(BusinessType.LEMON_STAND);
+		game.buy(Business.LEMON_STAND);
 
 		BigDecimal actualMoney = game.moneyInHand;
 		BigDecimal expectedMoney = new BigDecimal("2");
 
-		possessions.put(BusinessType.LEMON_STAND, 1);
+		possessions.put(Business.LEMON_STAND, 1);
 
 		// Then
 		assertEquals(expectedMoney, actualMoney);
-		assertEquals(Integer.valueOf(1), game.numberOf(BusinessType.LEMON_STAND));
+		assertEquals(Integer.valueOf(1), game.numberOf(Business.LEMON_STAND));
 	}
 
 	@Test
@@ -132,12 +132,12 @@ public class GameTest {
 	public void moneyAfter1SecondWithNewspapper() {
 		// Given
 		Game game = new Game();
-		addBusinessToPortfolio(game, BusinessType.NEWSPAPER_DELIVERY, 1);
+		addBusinessToPortfolio(game, Business.NEWSPAPER_DELIVERY, 1);
 		game.moneyInHand = new BigDecimal("0");
 		// When
 		game.doNothingFor(4);
 		BigDecimal actual = game.cash();
-		actual = actual.subtract(BusinessType.LEMON_STAND.profitWaitingFor(4));
+		actual = actual.subtract(Business.LEMON_STAND.profitWaitingFor(4));
 		// Then
 		BigDecimal expected = new BigDecimal("60");
 		assertEquals(expected, actual);
@@ -159,7 +159,7 @@ public class GameTest {
 	public void moneyAfter1SecondWithTwoLemonadeStand() {
 		// Given
 		Game game = new Game();
-		addBusinessToPortfolio(game, BusinessType.LEMON_STAND, 1);
+		addBusinessToPortfolio(game, Business.LEMON_STAND, 1);
 		game.moneyInHand = new BigDecimal("10");
 		// When
 		game.doNothingFor(1);
@@ -169,7 +169,7 @@ public class GameTest {
 		assertEquals(expected, actual);
 	}
 
-	private void addBusinessToPortfolio(Game game, BusinessType businessType,
+	private void addBusinessToPortfolio(Game game, Business businessType,
 			Integer number) {
 		for (int i = 0; i < number; i++) {
 			game.addBusiness(businessType);

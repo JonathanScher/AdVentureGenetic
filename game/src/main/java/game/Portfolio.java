@@ -5,23 +5,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Portfolio {
-	private Map<BusinessType, Integer> businessesOwned;
+	private Map<Business, Integer> businessesOwned;
 
 	public Portfolio() {
-		businessesOwned = new HashMap<BusinessType, Integer>();
-		businessesOwned.put(BusinessType.LEMON_STAND, 1);
+		businessesOwned = new HashMap<Business, Integer>();
+		businessesOwned.put(Business.LEMON_STAND, 1);
 
 	}
 
-	public Map<BusinessType, Integer> getBusinessesOwned() {
-		return businessesOwned;
-	}
-
-	public void addBusiness(BusinessType businessType) {
+	public void addBusiness(Business businessType) {
 		businessesOwned.put(businessType, numberOf(businessType) + 1);
 	}
 
-	public Integer numberOf(BusinessType businessType) {
+	public Integer numberOf(Business businessType) {
 		Integer numberOfBusinesses = businessesOwned.get(businessType);
 		if (numberOfBusinesses == null) {
 			numberOfBusinesses = 0;
@@ -31,7 +27,7 @@ public class Portfolio {
 
 	public BigDecimal profitWaitingFor(int seconds) {
 		BigDecimal moneyWaiting = new BigDecimal("0");
-		for (Map.Entry<BusinessType, Integer> entry : businessesOwned.entrySet()) {
+		for (Map.Entry<Business, Integer> entry : businessesOwned.entrySet()) {
 			BigDecimal numberOfBusinesses = new BigDecimal(entry.getValue()
 					.toString());
 			BigDecimal profitWaitingFor = entry.getKey().profitWaitingFor(

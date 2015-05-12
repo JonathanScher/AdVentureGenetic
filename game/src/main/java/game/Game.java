@@ -20,10 +20,8 @@ public class Game {
 		moneyInHand = moneyInHand.add(portfolio.profitWaitingFor(seconds));
 	}
 
-	public boolean buy(BusinessType businessType) {
-		Integer currentlyOwned = portfolio.getBusinessesOwned().get(businessType);
-		if (currentlyOwned == null)
-			currentlyOwned = 0;
+	public boolean buy(Business businessType) {
+		Integer currentlyOwned = numberOf(businessType);
 		BigDecimal costOfTheNext = businessType.costOfTheNext(currentlyOwned);
 		if (playerHasEnoughMoney(costOfTheNext, currentlyOwned)) {
 			buyBusiness(businessType, costOfTheNext, currentlyOwned);
@@ -32,9 +30,9 @@ public class Game {
 		return false;
 	}
 
-	private void buyBusiness(BusinessType businessType, BigDecimal costOfTheNext,
+	private void buyBusiness(Business businessType, BigDecimal costOfTheNext,
 			Integer currentlyOwned) {
-		portfolio.getBusinessesOwned().put(businessType, currentlyOwned + 1);
+		addBusiness(businessType);
 		moneyInHand = moneyInHand.subtract(costOfTheNext);
 	}
 
@@ -43,11 +41,11 @@ public class Game {
 		return moneyInHand.compareTo(costOfTheNext) >= 0;
 	}
 
-	public void addBusiness(BusinessType businessType) {
+	public void addBusiness(Business businessType) {
 		portfolio.addBusiness(businessType);
 	}
 
-	public Integer numberOf(BusinessType businessType) {
+	public Integer numberOf(Business businessType) {
 		return portfolio.numberOf(businessType);
 	}
 }
