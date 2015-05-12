@@ -1,42 +1,27 @@
 package game;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Game {
 	private static final BigDecimal LEMON_STAND_INITIAL_PROFIT = new BigDecimal(
 			"1");
 	public BigDecimal moneyInHand;
-	private Map<Business, Integer> businessesOwned;
+	private Portfolio portfolio = new Portfolio();
 
 	public Game() {
 		moneyInHand = LEMON_STAND_INITIAL_PROFIT;
-		businessesOwned = new HashMap<Business, Integer>();
-		businessesOwned.put(Business.LEMON_STAND, 1);
 	}
 
 	public BigDecimal cash() {
 		return moneyInHand;
 	}
 
-	public Map<Business, Integer> businessesOwned() {
-		return businessesOwned;
-	}
-
 	public void doNothingFor(int seconds) {
-		for (Map.Entry<Business, Integer> entry : businessesOwned.entrySet()) {
-			BigDecimal numberOfBusinesses = new BigDecimal(entry.getValue()
-					.toString());
-			BigDecimal profitWaitingFor = entry.getKey().profitWaitingFor(
-					seconds);
-			moneyInHand = moneyInHand.add(profitWaitingFor
-					.multiply(numberOfBusinesses));
-		}
+		moneyInHand = moneyInHand.add(portfolio.profitWaitingFor(seconds));
 	}
 
-	public boolean buy(Business businessType) {
-		Integer currentlyOwned = businessesOwned.get(businessType);
+	public boolean buy(BusinessType businessType) {
+		Integer currentlyOwned = portfolio.getBusinessesOwned().get(businessType);
 		if (currentlyOwned == null)
 			currentlyOwned = 0;
 		BigDecimal costOfTheNext = businessType.costOfTheNext(currentlyOwned);
@@ -47,14 +32,22 @@ public class Game {
 		return false;
 	}
 
-	private void buyBusiness(Business businessType, BigDecimal costOfTheNext,
+	private void buyBusiness(BusinessType businessType, BigDecimal costOfTheNext,
 			Integer currentlyOwned) {
-		businessesOwned.put(businessType, currentlyOwned + 1);
+		portfolio.getBusinessesOwned().put(businessType, currentlyOwned + 1);
 		moneyInHand = moneyInHand.subtract(costOfTheNext);
 	}
 
 	private boolean playerHasEnoughMoney(BigDecimal costOfTheNext,
 			Integer currentlyOwned) {
 		return moneyInHand.compareTo(costOfTheNext) >= 0;
+	}
+
+	public void addBusiness(BusinessType businessType) {
+		portfolio.addBusiness(businessType);
+	}
+
+	public Integer numberOf(BusinessType businessType) {
+		return portfolio.numberOf(businessType);
 	}
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 import evolution.orders.Buy;
 import evolution.orders.Order;
 import evolution.orders.Wait;
-import game.Business;
+import game.BusinessType;
 
 public class OrderFactory {
 
@@ -27,8 +27,8 @@ public class OrderFactory {
 
 	public Order generateBuy(Random rng) {
 		Order generated;
-		Business[] businesses = Business.values();
-		Business randomBusiness = businesses[rng.nextInt(businesses.length)];
+		BusinessType[] businesses = BusinessType.values();
+		BusinessType randomBusiness = businesses[rng.nextInt(businesses.length)];
 		generated = Buy.getInstance(randomBusiness);
 		return generated;
 	}
